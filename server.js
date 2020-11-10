@@ -294,3 +294,5 @@ function removeEmployeeDepartment(employeeDepartment){
     ])
 }
 removeEmployeeDepartment();
+
+//view employee, department and employee role
