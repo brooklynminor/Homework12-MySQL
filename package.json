@@ -1,5 +1,5 @@
 {
-  "name": "mysql",
+  "name": "mysqldb",
   "version": "1.0.0",
   "description": "As a business owner\r I want to be able to view and manage the departments, roles, and employees in my company\r So that I can organize and plan my business",
   "main": "server.js",
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/brooklynminor/Homework12-MySQL/issues"
   },
-  "homepage": "https://github.com/brooklynminor/Homework12-MySQL#readme"
+  "homepage": "https://github.com/brooklynminor/Homework12-MySQL#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
 }

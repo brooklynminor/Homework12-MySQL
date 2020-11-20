@@ -1,31 +1,28 @@
-const fs = require("fs");
 const inquirer = require( 'inquirer' );
+const db = require('./orm');
 const mysql = require( 'mysql' );
-const db = require('./orm')
 
-async function employeeDepartment(){
-    // get new employee department
-    const newEmployeeDepartment = await inquirer.prompt([
-        { name: "id",    message: "What is the id of the employee?" },
-        { name: "name",   message: "What is the name of the department?" },
-    ]);
+    async function employeeDepartment(){
+        // get new employee department
+        const newEmployeeDepartment = await inquirer.prompt([
+            { name: "id",    message: "What is the id of the employee?" },
+            { name: "name",   message: "What is the name of the department?" },
+        ]);
 
-    const myDepartment = await db.query( 
-        "INSERT INTO employee_department (id,title,salary,department_id) VALUES(?,?) ",
-        [newEmployeeDepartment.id, newEmployeeDepartment.name] );
-    console.log( `insert newEmployeeDepartment:`, myDepartment )
-    
-    const myEmployeeDepartment = await db.query( "SELECT * FROM employee_department" );
-    for( let i=0; i<myEmployeeDepartment.length; i++ ){
-        const employeeDepartment = myEmployeeDepartment[i];
-        console.log( `${i}: ${employeeDepartment.id}, ${employeeDepartment.name} `)
+        const myDepartment = await db.query( 
+            "INSERT INTO employee_department (id,title,salary,department_id) VALUES(?,?) ",
+            [newEmployeeDepartment.id, newEmployeeDepartment.name] );
+        console.log( `insert newEmployeeDepartment:`, myDepartment )
+        
+        const myEmployeeDepartment = await db.query( "SELECT * FROM employee_department" );
+        for( let i=0; i<myEmployeeDepartment.length; i++ ){
+            const employeeDepartment = myEmployeeDepartment[i];
+            console.log( `${i}: ${employeeDepartment.id}, ${employeeDepartment.name} `)
+        }
+        // console.log( myEmployee );
+
+        await db.close();
     }
-    // console.log( myEmployee );
-
-    await db.close();
-
-
-
 
 
     async function employeeRole(){
@@ -89,8 +86,9 @@ async function employeeDepartment(){
                 name: "remove",
                 message: `Are you sure you want to remove ${employee[0].first_name} ${employee[0].last_name}`,
                 choices: ["Yes", "No"],
-            }
+            } 
         ])
+    
     }
 
     //update an employee
@@ -127,7 +125,7 @@ async function employeeDepartment(){
     // updateEmployee();
 
     async function addEmployee(employee){
-        const add = await orm.addEmployee(employee)
+        const add = await db.addEmployee(employee)
 
         return inquirer.prompt([
             {
@@ -161,7 +159,7 @@ async function employeeDepartment(){
 
     //updates employee role
     async function updateRole(employeeRole){
-        const update = await orm.updateRole(employeeRole)
+        const update = await db.updateRole(employeeRole)
         return inquirer.prompt([
             {
                 type: "input",
@@ -193,7 +191,7 @@ async function employeeDepartment(){
     }
 
     async function removeRole(employeeRole){
-        const remove = await orm.removeRole(employeeRole)
+        const remove = await db.removeRole(employeeRole)
 
         return inquirer.prompt([
             {
@@ -221,7 +219,7 @@ async function employeeDepartment(){
     }
 
     async function updateEmployeeDepartment(employeeDepartment){
-        const updateEDepartment = await orm.updateEmployeeDepartment(employeeDepartment)
+        const updateEDepartment = await db.updateEmployeeDepartment(employeeDepartment)
         return inquirer.prompt([
             {
                 type: "input",
@@ -238,7 +236,7 @@ async function employeeDepartment(){
     }
 
     async function removeEmployeeDepartment(employeeDepartment){
-        const removeDepartment = await orm.removeEmployeeDepartment(employeeDepartment)
+        const removeDepartment = await db.removeEmployeeDepartment(employeeDepartment)
 
         return inquirer.prompt([
             {
@@ -254,5 +252,6 @@ async function employeeDepartment(){
             }
         ])
     }
+
 //view employee, department and employee role
-module.exports = { removeEmployeeDepartment, updateEmployeeDepartment, removeRole, updateRole, addEmployee, employeeInfo, employeeRole, employeeDepartment, }
+module.exports = {removeEmployeeDepartment, updateEmployeeDepartment, removeRole, updateRole, addEmployee, employeeInfo, employeeRole, employeeDepartment, } 
