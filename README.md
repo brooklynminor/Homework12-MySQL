@@ -2,7 +2,7 @@
 
 ## Objective
 
-Often, developers are required to creatt interfaces that make it easy for non-developers to view, interact and store information in databases. Often these interfaces are known as Content Management Systems (CMS). The challenge for this assignment is to architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
+Often, developers are required to create interfaces that make it easy for non-developers to view, interact and store information. These interfaces are known as Content Management Systems (CMS). The challenge for this assignment is to build a solution for managing a company's employees using node, inquirer, and MySQL.
 
 ## User Story
 
@@ -22,7 +22,7 @@ Installation is done using the npm install from the terminal.
 ```
 npm install mysql
 ```
-Run npm install to run dependencies
+Run [npm install] to run dependencies
 
 ## License
 [License](https://choosealicense.com/licenses/mit)
