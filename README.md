@@ -22,7 +22,7 @@ Installation is done using the npm install from the terminal.
 ```
 npm install mysql
 ```
-Run [npm install] to run dependencies
+Run `npm install` to run dependencies
 
 ## License
 [License](https://choosealicense.com/licenses/mit)
