@@ -25,7 +25,7 @@ class Database {
             } );
         } );
     }
-  }
+}
 // at top INIT DB connection
 const db = new Database({
     host: "localhost",
@@ -196,6 +196,7 @@ async function addEmployee(employee){
 }
 addEmployee();
 
+//updates employee role
 async function updateRole(employeeRole){
     const update = await orm.updateRole(employeeRole)
     return inquirer.prompt([
@@ -276,7 +277,7 @@ async function updateEmployeeDepartment(employeeDepartment){
 }
 updateEmployeeDepartment();
 
-function removeEmployeeDepartment(employeeDepartment){
+async function removeEmployeeDepartment(employeeDepartment){
     const removeDepartment = await orm.removeEmployeeDepartment(employeeDepartment)
 
     return inquirer.prompt([
@@ -296,3 +297,4 @@ function removeEmployeeDepartment(employeeDepartment){
 removeEmployeeDepartment();
 
 //view employee, department and employee role
+module.exports = { removeEmployeeDepartment, updateEmployeeDepartment, removeRole, updateRole, addEmployee, employeeInfo, employeeRole, employeeDepartment, close }
