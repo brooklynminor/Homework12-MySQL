@@ -273,4 +273,3 @@ async function main(){
         
     } while( menu.action !== "quit")
 }
-main()
