@@ -1,19 +1,18 @@
 const inquirer = require( 'inquirer' );
 const db = require('./orm');
 const mysql = require( 'mysql' );
-​
+
 async function employeeDepartment(){
     // get new employee department
     const newEmployeeDepartment = await inquirer.prompt([
         { name: "id",    message: "What is the id of the employee?" },
         { name: "name",   message: "What is the name of the department?" },
     ]);
-​
     const myDepartment = await db.query( 
         "INSERT INTO employee_department (id,title,salary,department_id) VALUES(?,?) ",
         [newEmployeeDepartment.id, newEmployeeDepartment.name] );
     console.log( `insert newEmployeeDepartment:`, myDepartment )
-    
+
     const myEmployeeDepartment = await db.query( "SELECT * FROM employee_department" );
     for( let i=0; i<myEmployeeDepartment.length; i++ ){
         const employeeDepartment = myEmployeeDepartment[i];
@@ -21,7 +20,6 @@ async function employeeDepartment(){
     }
     // console.log( myEmployee );
 }
-​
 async function employeeRole(){
     // get new employee role
     const newEmployeeRole = await inquirer.prompt([
@@ -30,12 +28,12 @@ async function employeeRole(){
         { name: "salary",    message: "What is the salary?" },
         { name: "department_id",   message: "What role is being reference within the department?" },
     ]);
-​
+
     const myRole = await db.query( 
         "INSERT INTO employee_role (id,title,salary,department_id) VALUES(?,?,?,?) ",
         [newEmployeeRole.id, newEmployeeRole.title, newEmployeeRole.salary, newEmployeeRole.department_id] );
     console.log( `insert newEmployeeRole:`, myRole )
-    
+
     const myEmployeeRole = await db.query( "SELECT * FROM employee_department" );
     for( let i=0; i<myEmployeeRole.length; i++ ){
         const employeeRole = myEmployeeRole[i];
@@ -43,7 +41,7 @@ async function employeeRole(){
     }
     // console.log( myEmployee );
 }
-​
+
 async function employeeInfo(){
     // get new employee info
     const employee = await inquirer.prompt([
@@ -52,23 +50,23 @@ async function employeeInfo(){
         { name: "last_name",    message: "What is the last name of the employee?" },
         { name: "role_id",   message: "What is their role within the department?" },
         { name: "manager_id",   message: "What is the name of their manager" },
-​
+
     ]);
-​
+
     const myNewEmployee = await db.query( 
         "INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES(?,?,?,?,?) ",
         [employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id] );
     console.log( `insert employee:`, myNewEmployee )
-    
+
     const myEmployee = await db.query( "SELECT * FROM employee" );
     for( let i=0; i<myEmployee.length; i++ ){
         const employee = myEmployee[i];
         console.log( `${i}: ${employee.id}, ${employee.first_name}, ${employee.last_name}, ${employee.role_id}, ${employee.manager_id} `)
     }
     // console.log( myEmployee );
-​
+
 }
-​
+
 //remove an employee
 function removeEmployee(employee){
     const myEmployee = employee((element) => element)
@@ -80,9 +78,9 @@ function removeEmployee(employee){
             choices: ["Yes", "No"],
         } 
     ])
-​
+
 }
-​
+
     //update an employee
     // function updateEmployee(employee){
     //     return inquirer.prompt([
@@ -115,10 +113,10 @@ function removeEmployee(employee){
     //     ])
     // }
     // updateEmployee();
-​
+
 async function addEmployee(employee){
     const add = await db.addEmployee(employee)
-​
+
     return inquirer.prompt([
         {
             type: "input",
@@ -148,7 +146,7 @@ async function addEmployee(employee){
         }
     ])
 }
-​
+
 //updates employee role
 async function updateRole(employeeRole){
     const update = await db.updateRole(employeeRole)
@@ -181,10 +179,10 @@ async function updateRole(employeeRole){
         }
     ])
 }
-​
+
 async function removeRole(employeeRole){
     const remove = await db.removeRole(employeeRole)
-​
+
     return inquirer.prompt([
         {
             type: "input",
@@ -209,7 +207,7 @@ async function removeRole(employeeRole){
         }
     ])
 }
-​
+
 async function updateEmployeeDepartment(employeeDepartment){
     const updateEDepartment = await db.updateEmployeeDepartment(employeeDepartment)
     return inquirer.prompt([
@@ -226,10 +224,10 @@ async function updateEmployeeDepartment(employeeDepartment){
         }
     ])
 }
-​
+
 async function removeEmployeeDepartment(employeeDepartment){
     const removeDepartment = await db.removeEmployeeDepartment(employeeDepartment)
-​
+
     return inquirer.prompt([
         {
             type: "input",
@@ -244,7 +242,6 @@ async function removeEmployeeDepartment(employeeDepartment){
         }
     ])
 }
-​
 async function main(){
     let menu
     do {
@@ -261,7 +258,6 @@ async function main(){
                     {value: 'quit', name:"Quit app" } ] 
             }
         ]);
-        
         if( menu.action==='add' )
             await employeeInfo()
         else if( menu.action=='remove')
@@ -273,3 +269,4 @@ async function main(){
         
     } while( menu.action !== "quit")
 }
+main();
